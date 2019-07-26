@@ -1,0 +1,54 @@
+
+/////////// Variables ///////////
+$QVGA: 320px  // x 240px
+$VGA:  640px  // x 480px
+$SXGA: 1280px // x 1024px
+$HDTV: 1920px // x 1080px
+
+$browser-context: 16 // Default (in px)
+
+@function em($pixels, $context: $browser-context)
+  @return #{$pixels/$context}em
+
+@mixin input-placeholder
+  &.placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+  &::-webkit-input-placeholder
+    @content
+
+$defaultColor: #8c1cff
+$defaultTextColor: #d8bbed
+$revenueColor: #31708f
+$ordersColor: #ff9800
+$importantColor: #f44336
+//$successColor: #59d15d
+
+// Notifications
+$errorBg: rgb(255, 221, 221)
+$errorBorder: #f5c6cb
+$errorColor: #721c24
+
+$successBg: #d4edda
+$successBorder: #c3e6cb
+$successColor: #59d15d
+
+$warningBg: #fff3cd
+$warningBorder: #ffeeba
+$warningColor: #856404
+
+$primaryBg: #cce5ff
+$primaryBorder: #b8daff
+$primaryColor: #004085
+
+$secondaryBg: #e2e3e5
+$secondaryBorder: #d6d8db
+$secondaryColor: #383d41
+
+
+

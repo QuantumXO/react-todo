@@ -1,0 +1,242 @@
+
+@import "./../../styles/config"
+
+// #ff8e8f
+
+.main
+	width: 100%
+	height: 100%
+	display: flex
+	align-items: center
+	justify-content: center
+
+	&__wrap
+		width: 430px
+		height: 581px
+		display: flex
+		justify-content: space-between
+		flex-direction: column
+		border-radius: 3px
+		background-color: #000
+		box-shadow: 0 4px 20px rgba(0, 0, 0, .7)
+
+	&__head
+		padding-bottom: 30px
+		border-bottom: 1px solid rgba($defaultColor, .6)
+
+		&__title
+			margin-top: 30px
+			color: $defaultColor
+			font: 400 italic em(25)/1 'Monty', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+
+		&__inner
+			margin-top: 20px
+			
+	&__progress
+		&__top
+			display: flex
+			align-items: flex-end
+			justify-content: space-between
+			color: $defaultTextColor
+			font-size: em(14)
+
+			.counter__number
+				&.success
+					//color: $successColor
+
+		&__field
+			width: 100%
+			height: 12px
+			margin-top: 3px
+			position: relative
+			border-radius: 10px
+			border: 1px solid $defaultColor
+			overflow: hidden
+
+		&__fill
+			height: 100%
+			border-radius: 10px
+			transition: .2s ease-in-out
+			background-color: $defaultTextColor
+
+		&__bottom
+			margin-top: 3px
+			display: flex
+			justify-content: flex-end
+			color: $defaultTextColor
+			font-size: em(14)
+
+			.counter__percent
+				&.success
+					//color: $successColor
+
+	&__container
+		margin-top: 30px
+		min-height: 290px
+		padding-bottom: 30px
+
+	&__list
+		counter-reset: list
+
+	&__item
+		//padding: 10px 0 10px 20px
+		padding: 10px 1px 10px 1px
+		display: flex
+		position: relative
+		line-height: 1
+		font-size: em(14)
+		letter-spacing: .5px
+		align-items: flex-start
+		color: $defaultTextColor
+		justify-content: space-between
+		animation: fadeInFromNone .2s ease-out
+
+		&.default
+			color: $defaultTextColor
+
+		&.important
+			color: $importantColor
+
+		&.completed
+			color: $successColor
+
+			.main__item__content
+				text-decoration: line-through
+
+			.main__item__complete
+				&:hover
+					svg
+						stroke: $importantColor
+						border-color: $importantColor
+
+		&:before
+			top: 15px
+			left: 0
+			border-radius: 50%
+			//position: absolute
+			color: $defaultTextColor
+			font-size: em(18)
+			counter-increment: list
+			//content: counter(list) "."
+
+		&.important
+			&:before
+				color: $importantColor
+
+		&.completed
+			&:before
+				color: $successColor
+
+		&__content
+			max-width: 200px
+			min-width: 200px
+			min-height: 32px
+
+			&.editing
+				max-height: 100px
+				text-decoration: none!important
+
+		&__complete
+			margin-right: 10px
+			transition: .2s ease-in-out
+
+			svg
+				width: 25px
+				height: 25px
+				border-radius: 50%
+				display: block
+				stroke-width: 4
+				border: 1px solid $defaultColor
+				stroke: $defaultColor
+				stroke-miterlimit: 10
+				transition: .2s ease-in-out
+				//box-shadow: inset 0 0 0 $green
+				animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both
+				cursor: pointer
+
+			&:hover
+				svg
+					stroke: $successColor
+					border: 1px solid $successColor
+
+		&__counter
+			margin: 5px 10px 0 0
+			user-select: none
+			color: $defaultTextColor
+			font-size: em(18)
+
+		&__priority
+			&__list
+				margin-bottom: 10px
+				display: flex
+				justify-content: flex-start
+
+			&__item
+				width: 20px
+				height: 20px
+				display: inline-block
+				border-radius: 50%
+				box-shadow: inset 0 0 5px 0 rgba(0,0,0,0.75)
+				cursor: pointer
+
+				&:not(:first-child)
+					margin-left: 10px
+
+				&.default
+					background: $defaultTextColor
+
+					&:hover
+						background: darken($defaultTextColor, 10%)
+
+				&.important
+					background: $importantColor
+
+					&:hover
+						background: darken($importantColor, 10%)
+
+		&__inner
+			margin: 5px 0 0 20px
+			display: flex
+			align-items: center
+			justify-content: space-between
+
+	&__footer
+		margin-top: 30px
+		padding-bottom: 30px
+
+		&__inner
+			display: flex
+			align-items: flex-end
+			justify-content: space-between
+
+		&__tags
+			display: flex
+			flex-wrap: wrap
+			align-items: center
+			justify-content: flex-start
+
+			.tag
+				padding: 5px
+				font-size: em(14)
+				font-style: italic
+				color: $defaultTextColor
+
+		&__new
+			padding: 8px 14px
+			display: inline-block
+			font-size: em(29)
+			color: $defaultColor
+			border-radius: 50%
+			//font-weight: 700
+			user-select: none
+			border: 2px solid $defaultColor
+			transition: .2s ease-in-out
+			cursor: pointer
+
+			&:hover
+				//transform: rotate(180deg)
+				color: $defaultTextColor
+				border-color: $defaultTextColor
+
+
+		//border-top: 1px solid $defaultColor
