@@ -11,10 +11,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
-
-//import DnDComponent from './../../components/default/dnd';
-
-
 import * as toDoAction from './../../actions/toDoAction';
 const ASC = 'ascending';
 const DSC = 'descending';
@@ -194,19 +190,9 @@ class Main extends Component {
             });
 
         }
-        
-        
 
         //this.props.toDoAction.handlePriorityAction(id, $this.target.getAttribute('data-type'));
     }
-
-    onBeforeDragStart = (beforeStart, provided) => {
-        console.log('beforeStart: ', beforeStart);
-    };
-
-    onDragStart = (start, provided) => {
-        console.log('start: ', start);
-    };
 
     onDragUpdate = (update, provided) => {
 
@@ -288,13 +274,15 @@ class Main extends Component {
                             {...provided.dragHandleProps}
                             className={"main__item " + classStatus + classPriority}
                         >
-                            <span className="main__item__complete" onClick={this.handleStatus.bind(this, id)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                    <path fill="none" d={complete_mark_path} />
-                                </svg>
-                            </span>
-                            <span className="main__item__counter">{index + 1}.</span>
-                            {contentField}
+                            <div className="main__item__inner">
+                                <span className="main__item__complete" onClick={this.handleStatus.bind(this, id)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                        <path fill="none" d={complete_mark_path} />
+                                    </svg>
+                                </span>
+                                <span className="main__item__counter">{index + 1}.</span>
+                                {contentField}
+                            </div>
                             <div className="main__item__inner">
                                 <span className="btn btn--edit" onClick={this.edit.bind(this, id, content, status, priority, editing, position)}>{editing ? 'Save' : 'Edit'}</span>
                                 <span className="btn btn--delete" onClick={this.delete.bind(this, id)}>x</span>
@@ -349,10 +337,6 @@ class Main extends Component {
                                     )}
                                 </Droppable>
                             </DragDropContext>
-
-                            {/*<ul className="main__list">
-                                {list}
-                            </ul>*/}
                         </div>
                     </div>
 

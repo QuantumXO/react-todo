@@ -13,6 +13,7 @@
 	&__wrap
 		width: 430px
 		height: 581px
+		max-width: 100%
 		display: flex
 		justify-content: space-between
 		flex-direction: column
@@ -109,6 +110,9 @@
 						stroke: $importantColor
 						border-color: $importantColor
 
+		@media (max-width: 420px)
+			flex-direction: column
+
 		&:before
 			top: 15px
 			left: 0
@@ -195,10 +199,18 @@
 						background: darken($importantColor, 10%)
 
 		&__inner
-			margin: 5px 0 0 20px
 			display: flex
-			align-items: center
 			justify-content: space-between
+
+			&:last-child
+				width: 100%
+				margin: 5px 0 0 20px
+				align-items: center
+
+				@media (max-width: 420px)
+					margin: 5px 0 0 0
+					justify-content: flex-end
+					//order: -1
 
 	&__footer
 		margin-top: 30px
