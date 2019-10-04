@@ -1,8 +1,14 @@
 
-import {HANDLE_EDITING_STATE, DELETE_ITEM, ADD_ITEM, HANDLE_STATE, HANDLE_PRIORITY, HANDLE_POSITION} from "./../constants/actionTypes";
+import {
+    HANDLE_EDITING_STATE,
+    DELETE_ITEM,
+    ADD_ITEM,
+    HANDLE_STATE,
+    HANDLE_PRIORITY,
+    HANDLE_POSITION
+} from "./../constants/actionTypes";
 
 export function handleEditingStateAction(data){
-
     return {
         type: HANDLE_EDITING_STATE,
         id: data.id,

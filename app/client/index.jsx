@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 // React router
 import { HashRouter, BrowserRouter } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
 
 const rootEl = document.querySelector('#root');
 

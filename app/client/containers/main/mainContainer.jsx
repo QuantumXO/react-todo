@@ -21,9 +21,6 @@ const draggingOverStyle = {
 };
 
 function sortList(a, b, order = ASC) {
-
-    //console.log('a', a);
-
     const diff = a.position - b.position;
 
     if (order === ASC) {
@@ -38,30 +35,24 @@ class Main extends Component {
     constructor(props){
         super(props);
 
-        const closedItemsCounter = this.props.toDoProps.toDoList.filter(item => item.status == 1).length;
-        const allItemsCounter = this.props.toDoProps.toDoList.length;
+        const {toDoProps} = this.props;
+        const closedItemsCounter = toDoProps.toDoList.filter(item => item.status == 1).length;
+        const allItemsCounter = toDoProps.toDoList.length;
 
         this.state = {
-            toDoList: this.props.toDoProps.toDoList,
-            editingArr: this.props.toDoProps.editingArr,
+            toDoList: toDoProps.toDoList,
+            editingArr: toDoProps.editingArr,
             closedItemsCounter,
             allItemsCounter,
             localItemChangesArr: [],
         };
-
-        this.addNewItem  = this.addNewItem.bind(this);
     }
 
     componentDidMount(){
-        $('.main__list').scrollbar({
-           /* "showArrows": true,
-            "scrollx": "advanced",
-            "scrolly": "advanced"*/
-        });
+        $('.main__list').scrollbar();
     }
 
     componentWillReceiveProps(nextProps) {
-        // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.toDoProps.toDoList !== this.state.toDoList) {
 
             const toDoList =  nextProps.toDoProps.toDoList;
@@ -76,24 +67,19 @@ class Main extends Component {
         }
     }
 
-
-    addNewItem(){
+    addNewItem = () =>{
         this.props.toDoAction.addItemAction();
-    }
+    };
 
     delete(id){
         this.props.toDoAction.deleteItemAction(id);
     }
 
     handleStatus(id){
-        console.log('handleStatus() -> id: ', id);
         this.props.toDoAction.handleStateAction(id);
     }
 
     edit(...args){
-        //id, content, status, priority, editing, position
-
-
         let id = args[0];
         let content = args[1];
         let status = args[2];
@@ -109,15 +95,11 @@ class Main extends Component {
             index = localItemChangesArr.map(item => item.id).indexOf(id);
 
             if(index != -1){
-
                 content = localItemChangesArr[index].content || content;
                 priority = localItemChangesArr[index].priority;
-
             }
-
         }
 
-        // 6
         data = {
             id,
             content,
@@ -127,27 +109,25 @@ class Main extends Component {
             position
         };
 
-        //console.log('edit() -> data: ', data);
-
         this.props.toDoAction.handleEditingStateAction(data);
     }
 
     handleContent(...args){
-        //this, id, content, status, priority, editing, $this
+
+        const localItemChangesArr = this.state.localItemChangesArr;
 
         let id = args[0];
         let content = args[1];
         let $this = args[2];
 
-        const localItemChangesArr = this.state.localItemChangesArr;
-
         if(localItemChangesArr.length && localItemChangesArr.map(item => item.id).indexOf(id) != -1){
             const index = localItemChangesArr.map(item => item.id).indexOf(id);
             const newArr = [...localItemChangesArr];
             newArr[index].content = $this.target.value;
-            this.setState(prevState => ({
+
+            this.setState({
                 localItemChangesArr: newArr
-            }));
+            });
 
         }else{
 
@@ -156,12 +136,10 @@ class Main extends Component {
             this.setState({
                 localItemChangesArr: [...localItemChangesArr, {id, content}]
             });
-
         }
     }
 
     handlePriority(...args){
-        // id, priority
 
         let id = args[0];
         let priority = args[1];
@@ -169,17 +147,16 @@ class Main extends Component {
 
         const newPriority = +$this.target.getAttribute('data-priority');
 
-        //console.log('handlePriority() -> newPriority: ', newPriority);
-
         const localItemChangesArr = this.state.localItemChangesArr;
 
         if(localItemChangesArr.length && localItemChangesArr.map(item => item.id).indexOf(id) != -1){
             const index = localItemChangesArr.map(item => item.id).indexOf(id);
             const newArr = [...localItemChangesArr];
             newArr[index].priority = newPriority;
-            this.setState(prevState => ({
+
+            this.setState({
                 localItemChangesArr: newArr
-            }));
+            });
 
         }else{
 
@@ -188,25 +165,16 @@ class Main extends Component {
             this.setState({
                 localItemChangesArr: [...localItemChangesArr, {id, priority}]
             });
-
         }
-
-        //this.props.toDoAction.handlePriorityAction(id, $this.target.getAttribute('data-type'));
     }
 
-    onDragUpdate = (update, provided) => {
-
-        //console.log('update: ', update);
-
-    };
+    onDragUpdate = (update, provided) => {};
 
     onDragEnd = (result, provided) => {
         // the only one that is required
 
-        const {destination, source, draggableId, type} = result;
+        const {destination, draggableId} = result;
         const realId = draggableId - 1;
-
-        let direction;
 
         if(!destination){
             return;
@@ -255,10 +223,10 @@ class Main extends Component {
                             <li className="main__item__priority__item default" title="default" data-priority="0" onClick={this.handlePriority.bind(this, id, priority)} />
                             <li className="main__item__priority__item important" title="important" data-priority="1" onClick={this.handlePriority.bind(this, id, priority)} />
                         </ul>
-                         <textarea className="main__item__content editing"
-                                   defaultValue={content}
-                             //value={this.state.editingArr.filter(item => item.id == id)[content]}
-                                   onChange={this.handleContent.bind(this, id, content)}
+                         <textarea
+                             className="main__item__content editing"
+                             defaultValue={content}
+                             onChange={this.handleContent.bind(this, id, content)}
                          />
                     </div>
 
@@ -318,8 +286,6 @@ class Main extends Component {
                         <div className="row">
 
                             <DragDropContext
-                                //onBeforeDragStart={this.onBeforeDragStart}
-                                //onDragStart={this.onDragStart}
                                 onDragUpdate={this.onDragUpdate}
                                 onDragEnd={this.onDragEnd}
                             >
@@ -362,9 +328,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
     toDoAction: bindActionCreators(toDoAction, dispatch),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

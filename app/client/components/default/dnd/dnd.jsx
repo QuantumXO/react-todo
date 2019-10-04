@@ -31,8 +31,6 @@ class DnDComponent extends Component {
 
         const {destination, source, draggableId, type} = result;
 
-        //destination.index
-
         if(!destination){
             return;
 

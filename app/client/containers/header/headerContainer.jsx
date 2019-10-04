@@ -4,9 +4,6 @@ import './_header.sass';
 
 import React, {Component} from 'react';
 
-// Redux
-import { bindActionCreators } from 'redux';
-
 import { connect } from 'react-redux';
 
 class Header extends Component {
@@ -28,12 +25,6 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
     basicProps: state.defaultReducer,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-
-    //basicAction: bindActionCreators(basicAction, dispatch),
-
 });
 
 export default connect(mapStateToProps, null)(Header)

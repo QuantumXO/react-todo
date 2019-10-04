@@ -8,7 +8,6 @@ import {
     DELETE_ITEM,
     ADD_ITEM,
     HANDLE_STATE,
-    HANDLE_PRIORITY,
     HANDLE_POSITION
 } from "./../constants/actionTypes";
 
@@ -72,11 +71,9 @@ function handleEditingState(state, action){
             }
 
             item.editing = !item.editing;
-
         }
 
         return item;
-
     });
 
     const newState = {...state, toDoList: newArr, editingArr};
@@ -126,11 +123,9 @@ function handleState(state, action) {
         if(item.id == action.id){
 
             item.status = !item.status;
-
         }
 
         return item;
-
     });
 
     const newState = {...state, toDoList: newArr};
